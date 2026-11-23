@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { ArrowUpRight, Crown, Dna, Gauge, MessageSquareQuote, Scale, Sparkles, type LucideIcon } from "lucide-react";
+import { ArrowUpRight, Dna, Gauge, MessageSquareQuote, Scale, Sparkles, type LucideIcon } from "lucide-react";
+import { GoldUnicornIcon } from "@/components/brand/UnicornMark";
 
 /* =========================================================
    PRO会員のメリット (機能への短い導線)
@@ -19,7 +20,7 @@ export const PRO_FEATURES: Omit<Benefit, "href">[] = [
   { icon: Sparkles, title: "詳細UNICO指数", body: "9項目の内訳と、前日→当日の指数変動" },
   { icon: MessageSquareQuote, title: "陣営AI指数", body: "陣営コメントをAIが評価。要点を抽出" },
   { icon: Dna, title: "血統・騎手・展開・追い切り", body: "条件適性・コース成績・想定隊列・最終追い切り" },
-  { icon: Crown, title: "最終買い目", body: "当日の最新情報を反映した買い目と資金配分" },
+  { icon: GoldUnicornIcon, title: "最終買い目", body: "当日の最新情報を反映した買い目と資金配分" },
 ];
 
 export function ProBenefits({ links }: { links: string[] }) {

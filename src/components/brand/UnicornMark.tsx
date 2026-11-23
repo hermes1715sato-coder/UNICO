@@ -55,3 +55,13 @@ export function UnicornMark({
     />
   );
 }
+
+/**
+ * lucide のアイコン表 (icon: LucideIcon) にそのまま入れられる金色ユニコーン。
+ * 線アイコンより塗りのシルエットは小さく見えるため 1.2 倍で描画する。
+ */
+function GoldUnicornIconImpl({ size = 16, className }: { size?: number | string; className?: string }) {
+  const s = typeof size === "number" ? Math.round(size * 1.2) : size;
+  return <UnicornMark size={s} tone="gold" className={className?.replace(/\btext-\S+/g, "").trim() || undefined} />;
+}
+export const GoldUnicornIcon = GoldUnicornIconImpl as unknown as import("lucide-react").LucideIcon;

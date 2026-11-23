@@ -1,6 +1,7 @@
 import Link from "next/link";
 import clsx from "clsx";
-import { Ban, Crown, Eye, Gauge, RefreshCw, Scale, UserRoundCog, type LucideIcon } from "lucide-react";
+import { Ban, Eye, Gauge, RefreshCw, Scale, UserRoundCog, type LucideIcon } from "lucide-react";
+import { UnicornMark } from "@/components/brand/UnicornMark";
 import type { LiveUpdate, LiveUpdateKind } from "@/lib/pro/types";
 import { ago, hhmm } from "./time";
 
@@ -15,7 +16,7 @@ const KIND: Record<LiveUpdateKind, { icon: LucideIcon; label: string; tone: stri
   weight: { icon: Scale, label: "馬体重", tone: "text-info" },
   paddock: { icon: Eye, label: "パドック", tone: "text-ok" },
   index_recalc: { icon: RefreshCw, label: "指数更新", tone: "text-ink" },
-  final_published: { icon: Crown, label: "最終買い目", tone: "text-gold-ink" },
+  final_published: { icon: Gauge, label: "最終買い目", tone: "text-gold-ink" }, // 表示は金色ユニコーン (下の分岐)
 };
 
 export function LiveTimeline({ updates, now, limit = 12 }: { updates: LiveUpdate[]; now: string; limit?: number }) {
@@ -50,7 +51,11 @@ export function LiveTimeline({ updates, now, limit = 12 }: { updates: LiveUpdate
                 className={clsx("relative z-[1] flex h-[30px] w-[30px] shrink-0 items-center justify-center rounded-full border border-line bg-surface", k.tone)}
                 title={k.label}
               >
-                <Icon size={15} strokeWidth={1.7} aria-hidden />
+                {u.kind === "final_published" ? (
+                  <UnicornMark size={18} tone="gold" />
+                ) : (
+                  <Icon size={15} strokeWidth={1.7} aria-hidden />
+                )}
                 <span className="sr-only">{k.label}</span>
               </span>
               <div className="min-w-0 flex-1 pt-[3px]">

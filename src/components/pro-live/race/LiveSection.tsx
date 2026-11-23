@@ -1,5 +1,6 @@
 import clsx from "clsx";
-import { Ban, Check, Clock, Crown, Droplets, Eye, RefreshCw, Scale, UserRound, Wind, type LucideIcon } from "lucide-react";
+import { Ban, Check, Clock, Droplets, Eye, RefreshCw, Scale, UserRound, Wind, type LucideIcon } from "lucide-react";
+import { GoldUnicornIcon } from "@/components/brand/UnicornMark";
 import type { RaceSummary } from "@/lib/types";
 import type { LiveUpdateKind, ProRaceAnalysis, TrackLive } from "@/lib/pro/types";
 import { SectionHeading } from "@/components/ui";
@@ -148,7 +149,7 @@ const KIND: Record<LiveUpdateKind, { icon: LucideIcon; label: string }> = {
   weight: { icon: Scale, label: "馬体重" },
   paddock: { icon: Eye, label: "パドック" },
   index_recalc: { icon: RefreshCw, label: "再計算" },
-  final_published: { icon: Crown, label: "最終買い目" },
+  final_published: { icon: GoldUnicornIcon, label: "最終買い目" },
 };
 
 function Timeline({ updates }: { updates: ProRaceAnalysis["updates"] }) {

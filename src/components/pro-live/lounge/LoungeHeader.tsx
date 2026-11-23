@@ -23,11 +23,12 @@ export function LoungeHeader({
     <header className="edge-silver edge-gold relative overflow-hidden rounded-[var(--radius-card-lg)] border border-gold/35 bg-surface shadow-[var(--shadow-card)]">
       <div className="brushed px-4 pt-5 pb-4 sm:px-6 sm:pt-6">
         <div className="flex items-start gap-3 sm:gap-4">
-          <span className="silver-plate flex h-12 w-12 shrink-0 items-center justify-center rounded-full sm:h-14 sm:w-14">
+          <span className="silver-plate flex h-16 w-16 shrink-0 items-center justify-center rounded-full sm:h-[76px] sm:w-[76px]">
             {locked ? (
-              <LockKeyhole size={21} strokeWidth={1.5} className="text-gold-ink" aria-hidden />
+              <LockKeyhole size={26} strokeWidth={1.5} className="text-gold-ink" aria-hidden />
             ) : (
-              <UnicornMark size={26} tone="gold" />
+              // プレートいっぱいに大きく見せる
+              <UnicornMark size="76%" tone="gold" />
             )}
           </span>
           <div className="min-w-0 flex-1">
