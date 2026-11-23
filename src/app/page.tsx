@@ -13,11 +13,14 @@ import { IndexIntro } from "@/components/home/IndexIntro";
 import { FreeWideIntro } from "@/components/home/FreeWideIntro";
 import { AdSlot } from "@/components/home/AdSlot";
 import { NewsList } from "@/components/home/NewsList";
+import { getNow, getViewer } from "@/lib/access/session";
+import { showAds } from "@/lib/access/policy";
 
 const ANCHOR = "race-select";
 
 export default async function Home({ searchParams }: { searchParams: Promise<SearchParams> }) {
   const sel = await resolveSelection(await searchParams);
+  const ads = showAds(await getViewer(), getNow());
   const dayRaces = sel.venue ? await getRacesOfDay(sel.date) : [];
 
   // 注目レース: featured を先頭に、各競馬場のメインレース (11R) を並べる
@@ -61,7 +64,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
         </div>
       </section>
 
-      <AdSlot id="home-1" />
+      {ads && <AdSlot id="home-1" />}
 
       <section>
         <SectionHeading index="02" en="FEATURED" title={featuredTitle} action={IS_DEMO ? <DemoBadge /> : undefined} />
@@ -100,7 +103,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
         <ProIntroCard variant="home" />
       </section>
 
-      <AdSlot id="home-2" />
+      {ads && <AdSlot id="home-2" />}
 
       <section>
         <SectionHeading index="05" en="NEWS" title="お知らせ" />

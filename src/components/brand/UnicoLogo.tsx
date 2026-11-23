@@ -2,13 +2,13 @@ import Image from "next/image";
 
 /**
  * UNICO ロゴマーク (正式アイコン画像)
- * 画像: public/brand/unico-icon.png (支給画像から角丸で切り抜き、外側は透明)
+ * 画像: public/brand/unico-mark.png (支給画像から角丸で切り抜き、外側は透明)
  * サイトのファビコン/ホーム画面アイコンは src/app/icon.png / apple-icon.png。
  */
 export function UnicoMark({ size = 36, className }: { size?: number; className?: string }) {
   return (
     <Image
-      src="/brand/unico-icon.png"
+      src="/brand/unico-mark.png"
       alt="UNICO"
       width={size}
       height={size}

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
 import { NAV_ITEMS } from "./nav-items";
+import { UnicornMark } from "@/components/brand/UnicornMark";
 
 /** スマホ用 下部固定タブバー (セーフエリア対応) */
 export function BottomNavigation() {
@@ -38,7 +39,11 @@ export function BottomNavigation() {
                     active && (isPro ? "border border-gold/50 bg-surface" : "silver-plate"),
                   )}
                 >
-                  <Icon size={20} strokeWidth={active ? 2 : 1.6} className={clsx(isPro && "text-gold")} />
+                  {isPro ? (
+                    <UnicornMark size={22} tone="gold" />
+                  ) : (
+                    <Icon size={20} strokeWidth={active ? 2 : 1.6} />
+                  )}
                 </span>
                 <span>{item.label}</span>
               </Link>

@@ -2,10 +2,11 @@ import type { Metadata } from "next";
 import { IS_DEMO } from "@/lib/data";
 import { DemoBadge } from "@/components/ui";
 import { parseDate } from "@/lib/format";
-import { TrackOval } from "@/components/brand/TrackOval";
+
 import { MONTH_EN, RaceSelector, StepLabel } from "@/components/selector/RaceSelector";
 import { RaceList } from "@/components/selector/RaceList";
 import { resolveSelection, type SearchParams } from "@/components/selector/resolve";
+import { UnicornMark } from "@/components/brand/UnicornMark";
 
 export const metadata: Metadata = { title: "レース一覧" };
 
@@ -17,7 +18,7 @@ export default async function RacesPage({ searchParams }: { searchParams: Promis
     <div className="mx-auto max-w-6xl px-4 py-5 lg:px-6 lg:py-8">
       {/* ページ見出し: 細い大文字 + 縦罫 + 楕円トラックの細線 */}
       <header className="relative mb-4 overflow-hidden lg:mb-5">
-        <TrackOval variant="decor" width={300} className="absolute -right-[90px] -top-[40px] opacity-70 lg:-right-[40px] lg:-top-[70px] lg:w-[420px]" />
+        <UnicornMark size={240} tone="silver" className="pointer-events-none absolute -right-[90px] -top-[40px] lg:-right-[40px] lg:-top-[70px] lg:w-[420px] opacity-[0.14]" />
         <div className="relative flex items-end gap-3">
           <span aria-hidden className="num -mb-[3px] text-[40px] font-extralight leading-none tracking-[-0.04em] text-silver lg:text-[48px]">
             {String(d).padStart(2, "0")}

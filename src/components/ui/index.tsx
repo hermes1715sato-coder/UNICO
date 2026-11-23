@@ -118,13 +118,17 @@ export function DataStatusBadge({ status, className }: { status: RaceStatus; cla
 export function GradeBadge({ grade }: { grade?: string }) {
   if (!grade) return null;
   return (
-    <span className="num inline-flex items-center rounded-[4px] border border-gold/60 px-1 text-[11px] font-bold leading-[16px] text-[#8a7650]">
+    <span className="num inline-flex items-center rounded-[4px] border border-gold/60 px-1 text-[11px] font-bold leading-[16px] text-gold-ink">
       {grade}
     </span>
   );
 }
 
-/** 無料 / PRO 公開状況 */
+/**
+ * 無料 / 買い目 提供状況。
+ * pro === "on_sale" は「予想対象レース」(事前買い目 300円 + PRO会員は最終買い目) を意味する。
+ * レース単位で PRO を購入する表現にはしない。
+ */
 export function AccessBadges({ freeWide, pro }: { freeWide: boolean; pro: ProAvailability }) {
   return (
     <span className="inline-flex items-center gap-1">
@@ -132,10 +136,15 @@ export function AccessBadges({ freeWide, pro }: { freeWide: boolean; pro: ProAva
         <span className="rounded-[5px] border border-line bg-surface px-1.5 py-[1px] text-[11px] font-semibold text-ink-2">無料ワイド</span>
       )}
       {pro === "on_sale" && (
-        <span className="num rounded-[5px] border border-gold/70 bg-surface px-1.5 py-[1px] text-[11px] font-bold tracking-wider text-[#8a7650]">PRO</span>
+        <span
+          className="silver-plate rounded-[5px] px-1.5 py-[1px] text-[11px] font-bold text-ink"
+          title="事前買い目（1レース300円）・PRO会員は最終買い目も閲覧可"
+        >
+          事前買い目
+        </span>
       )}
       {pro === "preparing" && (
-        <span className="rounded-[5px] border border-dashed border-silver px-1.5 py-[1px] text-[11px] font-medium text-ink-2">PRO準備中</span>
+        <span className="rounded-[5px] border border-dashed border-silver px-1.5 py-[1px] text-[11px] font-medium text-ink-2">買い目準備中</span>
       )}
     </span>
   );

@@ -18,6 +18,7 @@
   --color-line: #e1e6e3;          /* Border */
   --color-accent-silver: #899995; /* Accent Silver */
   --color-gold: #b5a078;          /* Premium Gold (細線・アイコン限定) */
+  --color-gold-ink: #8a7650;      /* ゴールド系の文字色 (白地でのコントラスト確保) */
   --color-forest: #102a23;        /* Logo Forest Green (ロゴ・限定アクセントのみ) */
 
   /* Charcoal for primary buttons / selected state */
@@ -64,6 +65,191 @@
 :root {
   --safe-bottom: env(safe-area-inset-bottom, 0px);
   --bottom-nav-h: 64px;
+  /* 蹄鉄ゲージの塗り */
+  --gauge-start: #a7b3b0;
+  --gauge-mid: #5f6d68;
+  --gauge-end: #2b3431;
+  --gauge-end-gold: #8f7c55;
+  /* シルバープレート / ブラッシュ面 */
+  --plate-a: #eef1f1;
+  --plate-b: #dde3e2;
+  --plate-c: #e8ecec;
+  --plate-d: #cfd7d6;
+  --plate-border: #c9d1d0;
+  --plate-hi: rgba(255, 255, 255, 0.85);
+  --brushed-top: #ffffff;
+  --brushed-bottom: #f3f5f4;
+}
+
+/* =========================================================
+   配色バリエーション (比較検討用)
+   <html data-theme="..."> で切り替え。未指定 = silver (正式配色)
+   ========================================================= */
+
+/* B. Carbon Night — 新ロゴ (黒カーボン×シルバー) に合わせたダーク */
+:root[data-theme="carbon"] {
+  color-scheme: dark;
+  --color-bg: #0d0f10;
+  --color-surface: #15181a;
+  --color-surface-2: #1b1f21;
+  --color-silver-surface: #23292b;
+  --color-silver: #3b4447;
+  --color-ink: #eef1f0;
+  --color-ink-2: #a2acaa;
+  --color-line: #272d30;
+  --color-accent-silver: #8f9b99;
+  --color-gold: #c6b28a;
+  --color-gold-ink: #d4c197;
+  --color-charcoal: #4a5558;
+  --color-charcoal-hover: #586468;
+  --color-turf: #74cc97; --color-turf-bg: #14281c;
+  --color-dirt: #dca36d; --color-dirt-bg: #2b2117;
+  --color-info: #86bbe8; --color-info-bg: #132230;
+  --color-warn: #e6c062; --color-warn-bg: #29220f;
+  --color-danger: #f28f83; --color-danger-bg: #2f1715;
+  --color-ok: #72c99a; --color-ok-bg: #13291d;
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --gauge-start: #4b5558; --gauge-mid: #9aa6a4; --gauge-end: #f2f5f4; --gauge-end-gold: #d8c393;
+  --plate-a: #2c3335; --plate-b: #1f2527; --plate-c: #283032; --plate-d: #171b1d;
+  --plate-border: #3b4447; --plate-hi: rgba(255, 255, 255, 0.08);
+  --brushed-top: #181c1e; --brushed-bottom: #121517;
+}
+
+/* C. Ivory Champagne — アイボリー × シャンパンゴールド (温かみ・高級感) */
+:root[data-theme="champagne"] {
+  --color-bg: #f6f3ec;
+  --color-surface: #fffdf9;
+  --color-surface-2: #f2ede3;
+  --color-silver-surface: #ebe4d6;
+  --color-silver: #d4c8b1;
+  --color-ink: #2e2a24;
+  --color-ink-2: #766c5e;
+  --color-line: #e6dfd1;
+  --color-accent-silver: #a08f72;
+  --color-gold: #b39259;
+  --color-gold-ink: #836636;
+  --color-charcoal: #3a332a;
+  --color-charcoal-hover: #4a4236;
+  --gauge-start: #d9ccb2; --gauge-mid: #a08f72; --gauge-end: #3a332a; --gauge-end-gold: #9a7a3f;
+  --plate-a: #faf6ee; --plate-b: #ebe2d1; --plate-c: #f4eee2; --plate-d: #ddd1bb;
+  --plate-border: #d9cdb6;
+  --brushed-top: #fffdf9; --brushed-bottom: #f5f0e6;
+}
+
+/* D. Midnight Navy — 白 × ミッドナイトネイビー (知的・データ分析らしさ) */
+:root[data-theme="navy"] {
+  --color-bg: #f3f5f8;
+  --color-surface: #ffffff;
+  --color-surface-2: #eef1f6;
+  --color-silver-surface: #e4e9f0;
+  --color-silver: #c0c9d5;
+  --color-ink: #1c2738;
+  --color-ink-2: #5e6a7b;
+  --color-line: #dee4ec;
+  --color-accent-silver: #8290a3;
+  --color-gold: #b39c6e;
+  --color-gold-ink: #806b3d;
+  --color-charcoal: #1d2c47;
+  --color-charcoal-hover: #293b5d;
+  --gauge-start: #b4c0d0; --gauge-mid: #5d6f8a; --gauge-end: #1d2c47; --gauge-end-gold: #8f7a4c;
+  --plate-a: #f1f4f8; --plate-b: #dce3ec; --plate-c: #e9eef4; --plate-d: #cbd4e0;
+  --plate-border: #c6cfdb;
+  --brushed-top: #ffffff; --brushed-bottom: #f1f4f8;
+}
+
+/* E. Forest Accent — 白 × 旧ロゴの濃緑をアクセントに (背景は白のまま) */
+:root[data-theme="forest"] {
+  --color-bg: #f4f6f3;
+  --color-surface: #ffffff;
+  --color-surface-2: #eef2ef;
+  --color-silver-surface: #e5ebe7;
+  --color-silver: #bfccc5;
+  --color-ink: #1d2b25;
+  --color-ink-2: #5f7068;
+  --color-line: #dce4df;
+  --color-accent-silver: #7d938a;
+  --color-charcoal: #173a2f;
+  --color-charcoal-hover: #1f4a3c;
+  --gauge-start: #b6c6be; --gauge-mid: #4f6e61; --gauge-end: #173a2f; --gauge-end-gold: #8f7c55;
+}
+
+/* F. Jockey Crimson — 勝負服の深紅 */
+:root[data-theme="crimson"] {
+  --color-bg: #f7f5f4; --color-surface: #ffffff; --color-surface-2: #f3efee; --color-silver-surface: #ece6e5;
+  --color-silver: #d3c7c6; --color-ink: #2a2223; --color-ink-2: #75696a; --color-line: #e8e0df;
+  --color-accent-silver: #9c8a8b; --color-gold-ink: #85703f;
+  --color-charcoal: #8e1b2c; --color-charcoal-hover: #a3253a;
+  --gauge-start: #e3cdd0; --gauge-mid: #b25a67; --gauge-end: #8e1b2c;
+  --plate-a: #faf6f6; --plate-b: #ebe1e1; --plate-c: #f3eded; --plate-d: #dccfd0; --plate-border: #d8cbcc;
+  --brushed-bottom: #f6f2f2;
+}
+
+/* G. Royal Purple — G1の格式 (紫×金) */
+:root[data-theme="royal"] {
+  --color-bg: #f6f5f9; --color-surface: #ffffff; --color-surface-2: #f1eff6; --color-silver-surface: #e8e5f0;
+  --color-silver: #cbc5da; --color-ink: #241f33; --color-ink-2: #6a6480; --color-line: #e3dfec;
+  --color-accent-silver: #8e86a6; --color-gold: #b8995a; --color-gold-ink: #866a2f;
+  --color-charcoal: #3b2766; --color-charcoal-hover: #4a3380;
+  --gauge-start: #d3cbe6; --gauge-mid: #7a64a8; --gauge-end: #3b2766; --gauge-end-gold: #a5843f;
+  --plate-a: #f7f5fb; --plate-b: #e3deee; --plate-c: #efecf6; --plate-d: #d2cbe2; --plate-border: #cdc6de;
+  --brushed-bottom: #f3f1f8;
+}
+
+/* H. Sakura — 春のクラシック (桜色×ローズゴールド) */
+:root[data-theme="sakura"] {
+  --color-bg: #fbf6f7; --color-surface: #fffdfd; --color-surface-2: #f8eff1; --color-silver-surface: #f2e4e8;
+  --color-silver: #e0c9cf; --color-ink: #3a2a2f; --color-ink-2: #846f76; --color-line: #efe2e5;
+  --color-accent-silver: #b0959d; --color-gold: #c49a8a; --color-gold-ink: #93604f;
+  --color-charcoal: #a94a66; --color-charcoal-hover: #943f59;
+  --gauge-start: #f2d3dc; --gauge-mid: #d0849a; --gauge-end: #a94a66; --gauge-end-gold: #b07a63;
+  --plate-a: #fffafb; --plate-b: #f1e2e6; --plate-c: #f9eff2; --plate-d: #e6d1d7; --plate-border: #e3cdd3;
+  --brushed-top: #fffdfd; --brushed-bottom: #faf1f3;
+}
+
+/* I. Glacier — 冬の朝の氷青 */
+:root[data-theme="glacier"] {
+  --color-bg: #f2f7fa; --color-surface: #ffffff; --color-surface-2: #eaf2f7; --color-silver-surface: #ddeaf2;
+  --color-silver: #b8cfdd; --color-ink: #17303f; --color-ink-2: #577080; --color-line: #d9e7ef;
+  --color-accent-silver: #7b9aad; --color-gold: #b0a07f; --color-gold-ink: #7d6d47;
+  --color-charcoal: #1f6a8f; --color-charcoal-hover: #1a5c7c;
+  --gauge-start: #c5e2f0; --gauge-mid: #4d9cc2; --gauge-end: #1f6a8f;
+  --plate-a: #f6fbfd; --plate-b: #dbe9f1; --plate-c: #ebf4f9; --plate-d: #c9dce8; --plate-border: #c2d7e4;
+  --brushed-bottom: #eff6fa;
+}
+
+/* J. Sunset Paddock — 夕暮れのパドック (テラコッタ) */
+:root[data-theme="sunset"] {
+  --color-bg: #f8f3ee; --color-surface: #fffcf9; --color-surface-2: #f4ebe3; --color-silver-surface: #eee0d4;
+  --color-silver: #dbc3ae; --color-ink: #33261d; --color-ink-2: #7d6656; --color-line: #ecdfd3;
+  --color-accent-silver: #ad8f78; --color-gold: #c08a4a; --color-gold-ink: #8a5a22;
+  --color-charcoal: #a8462a; --color-charcoal-hover: #933c23;
+  --gauge-start: #f0d2bc; --gauge-mid: #d98458; --gauge-end: #a8462a; --gauge-end-gold: #a9742f;
+  --plate-a: #fdf8f3; --plate-b: #efe0d2; --plate-c: #f7eee5; --plate-d: #e2cdb9; --plate-border: #dec8b3;
+  --brushed-top: #fffcf9; --brushed-bottom: #f8efe7;
+}
+
+/* K. Nighter — ナイター競馬 (夜の濃紺×照明のシアン) */
+:root[data-theme="nighter"] {
+  color-scheme: dark;
+  --color-bg: #070b14; --color-surface: #0e1422; --color-surface-2: #131b2c; --color-silver-surface: #1a2438;
+  --color-silver: #2e3c58; --color-ink: #eaf2ff; --color-ink-2: #97a7c3; --color-line: #1d283d;
+  --color-accent-silver: #8095b8; --color-gold: #e3c36f; --color-gold-ink: #f0d488;
+  --color-charcoal: #0b7a99; --color-charcoal-hover: #0e8fb3;
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --gauge-start: #22344f; --gauge-mid: #2fb8d9; --gauge-end: #8af2ff; --gauge-end-gold: #f0d488;
+  --plate-a: #1d2a42; --plate-b: #121b2e; --plate-c: #19253b; --plate-d: #0b1120;
+  --plate-border: #2e3c58; --plate-hi: rgba(140, 220, 255, 0.10);
+  --brushed-top: #10182a; --brushed-bottom: #0b111e;
+}
+
+/* ダーク系共通の機能色 */
+:root[data-theme="nighter"] {
+  --color-turf: #74cc97; --color-turf-bg: #12261c;
+  --color-dirt: #dca36d; --color-dirt-bg: #2a2018;
+  --color-info: #86bbe8; --color-info-bg: #122236;
+  --color-warn: #e6c062; --color-warn-bg: #251f10;
+  --color-danger: #f28f83; --color-danger-bg: #2c1618;
+  --color-ok: #72c99a; --color-ok-bg: #11261c;
 }
 
 html {
@@ -100,16 +286,16 @@ body {
 /* マットシルバーのプレート (削り出し金属風。光沢は抑える) */
 .silver-plate {
   background:
-    linear-gradient(160deg, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0) 38%),
-    linear-gradient(135deg, #eef1f1 0%, #dde3e2 46%, #e8ecec 58%, #cfd7d6 100%);
-  border: 1px solid #c9d1d0;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.85), inset 0 -1px 0 rgba(137,153,149,0.18);
+    linear-gradient(160deg, var(--plate-hi) 0%, transparent 38%),
+    linear-gradient(135deg, var(--plate-a) 0%, var(--plate-b) 46%, var(--plate-c) 58%, var(--plate-d) 100%);
+  border: 1px solid var(--plate-border);
+  box-shadow: inset 0 1px 0 var(--plate-hi), inset 0 -1px 0 rgba(137,153,149,0.18);
 }
 /* ヘアライン (極細の横筋。ブラッシュ仕上げ) */
 .brushed {
   background-image:
     repeating-linear-gradient(0deg, rgba(137,153,149,0.045) 0px, rgba(137,153,149,0.045) 1px, transparent 1px, transparent 3px),
-    linear-gradient(180deg, #ffffff 0%, #f3f5f4 100%);
+    linear-gradient(180deg, var(--brushed-top) 0%, var(--brushed-bottom) 100%);
 }
 /* カード上端のシルバーの細線 */
 .edge-silver { position: relative; }

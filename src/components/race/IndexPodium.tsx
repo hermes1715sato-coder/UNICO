@@ -42,7 +42,7 @@ export function IndexPodium({ entries, index }: { entries: Entry[]; index: Publi
                 <PodiumRank rank={idx.rank} />
                 <span className="num pt-1 text-[11.5px] text-ink-2">
                   {first ? (
-                    <span className="font-semibold tracking-[0.14em] text-[#8a7650]">TOP</span>
+                    <span className="font-semibold tracking-[0.14em] text-gold-ink">TOP</span>
                   ) : (
                     <>
                       1位差 <span className="text-ink">−{gap.toFixed(1)}</span>
@@ -59,7 +59,7 @@ export function IndexPodium({ entries, index }: { entries: Entry[]; index: Publi
                 {first && (
                   <div className="mb-2 flex items-center justify-between sm:hidden">
                     <PodiumRank rank={1} />
-                    <span className="num text-[11px] font-semibold tracking-[0.14em] text-[#8a7650]">TOP</span>
+                    <span className="num text-[11px] font-semibold tracking-[0.14em] text-gold-ink">TOP</span>
                   </div>
                 )}
                 <div className="flex items-center gap-2">

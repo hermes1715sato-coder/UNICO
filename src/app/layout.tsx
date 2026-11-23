@@ -5,6 +5,11 @@ import { SiteHeader } from "@/components/layout/SiteHeader";
 import { BottomNavigation } from "@/components/layout/BottomNavigation";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { DemoNotice } from "@/components/ui";
+import { ThemeSwitcher } from "@/components/layout/ThemeSwitcher";
+import { DemoPersonaSwitcher } from "@/components/layout/DemoPersonaSwitcher";
+import { FloatingDock } from "@/components/layout/FloatingDock";
+import { getDemoPersonaId } from "@/lib/access/session";
+import { THEME_INIT_SCRIPT } from "@/components/layout/themes";
 import { IS_DEMO } from "@/lib/data";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
@@ -22,15 +27,23 @@ export const viewport: Viewport = {
   themeColor: "#ffffff",
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const personaId = IS_DEMO ? await getDemoPersonaId() : null;
   return (
-    <html lang="ja" className={`${inter.variable} ${noto.variable}`}>
+    <html lang="ja" className={`${inter.variable} ${noto.variable}`} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
+      </head>
       <body className="min-h-dvh">
         <SiteHeader />
         {IS_DEMO && <DemoNotice />}
         <main className="pb-bottom-nav">{children}</main>
         <SiteFooter />
         <BottomNavigation />
+        <FloatingDock>
+          {personaId && <DemoPersonaSwitcher current={personaId} />}
+          <ThemeSwitcher />
+        </FloatingDock>
       </body>
     </html>
   );

@@ -43,7 +43,7 @@ function FeaturedRaceCard({ race }: { race: RaceSummary }) {
           <span className="num text-[11px] font-semibold tracking-[0.18em] text-accent-silver">{race.venue.nameEn}</span>
         </p>
         {race.featured ? (
-          <span className="inline-flex items-center gap-1 rounded-full border border-gold/50 px-2 py-[1px] text-[11px] font-bold text-[#8a7650]">
+          <span className="inline-flex items-center gap-1 rounded-full border border-gold/50 px-2 py-[1px] text-[11px] font-bold text-gold-ink">
             <Star size={11} strokeWidth={2} aria-hidden />
             注目
           </span>

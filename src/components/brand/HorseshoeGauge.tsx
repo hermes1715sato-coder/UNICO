@@ -37,13 +37,13 @@ export function HorseshoeGauge({
     >
       <defs>
         <linearGradient id={id} x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0" stopColor="#a7b3b0" />
-          <stop offset="0.6" stopColor="#5f6d68" />
-          <stop offset="1" stopColor={highlight ? "#8f7c55" : "#2b3431"} />
+          <stop offset="0" style={{ stopColor: "var(--gauge-start)" }} />
+          <stop offset="0.6" style={{ stopColor: "var(--gauge-mid)" }} />
+          <stop offset="1" style={{ stopColor: highlight ? "var(--gauge-end-gold)" : "var(--gauge-end)" }} />
         </linearGradient>
       </defs>
       {/* track */}
-      <path d={D} fill="none" stroke="#e9edef" strokeWidth="10" strokeLinecap="round" />
+      <path d={D} fill="none" stroke="var(--color-silver-surface)" strokeWidth="10" strokeLinecap="round" />
       {/* fill */}
       <path
         d={D}
@@ -61,7 +61,7 @@ export function HorseshoeGauge({
         [78, 20],
         [78, 33],
       ].map(([x, y]) => (
-        <circle key={`${x}${y}`} cx={x} cy={y} r="1.3" fill="#ffffff" opacity="0.9" />
+        <circle key={`${x}${y}`} cx={x} cy={y} r="1.3" fill="var(--color-surface)" opacity="0.9" />
       ))}
       {showValue && (
         <>
@@ -70,7 +70,7 @@ export function HorseshoeGauge({
             y="50"
             textAnchor="middle"
             className="num"
-            style={{ fontSize: 16, fontWeight: 700, fill: "#26312d", fontFamily: "var(--font-num)" }}
+            style={{ fontSize: 16, fontWeight: 700, fill: "var(--color-ink)", fontFamily: "var(--font-num)" }}
           >
             {v.toFixed(1)}
           </text>
@@ -78,7 +78,7 @@ export function HorseshoeGauge({
             x="50"
             y="63"
             textAnchor="middle"
-            style={{ fontSize: 7.5, fontWeight: 600, letterSpacing: "0.2em", fill: "#899995", fontFamily: "var(--font-num)" }}
+            style={{ fontSize: 7.5, fontWeight: 600, letterSpacing: "0.2em", fill: "var(--color-accent-silver)", fontFamily: "var(--font-num)" }}
           >
             {label}
           </text>

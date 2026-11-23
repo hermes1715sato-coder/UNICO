@@ -61,7 +61,7 @@ export function IndexIntro() {
         {/* 蹄鉄: 配点で9分割 */}
         <figure className="mx-auto">
           <svg viewBox="2 3 96 93" width={232} height={225} role="img" aria-label="UNICO指数の配点を蹄鉄の長さで示した図" className="block">
-            <path d={D} fill="none" stroke="#f0f2f1" strokeWidth="8" />
+            <path d={D} fill="none" stroke="var(--color-surface-2)" strokeWidth="8" />
             {segs.map((s) => (
               <path
                 key={s.key}
@@ -79,7 +79,7 @@ export function IndexIntro() {
               [22, 17],
               [78, 17],
             ].map(([x, y]) => (
-              <circle key={x} cx={x} cy={y} r="1.2" fill="#ffffff" opacity="0.9" />
+              <circle key={x} cx={x} cy={y} r="1.2" fill="var(--color-surface)" opacity="0.9" />
             ))}
             {/* 項目番号 (外周) */}
             {segs.map((s) => {
@@ -91,16 +91,16 @@ export function IndexIntro() {
                   y={y}
                   textAnchor="middle"
                   dominantBaseline="central"
-                  style={{ fontSize: 5.4, fontWeight: 600, fill: "#68756f", fontFamily: "var(--font-num)" }}
+                  style={{ fontSize: 5.4, fontWeight: 600, fill: "var(--color-ink-2)", fontFamily: "var(--font-num)" }}
                 >
                   {s.no}
                 </text>
               );
             })}
-            <text x="50" y="40" textAnchor="middle" style={{ fontSize: 17, fontWeight: 300, fill: "#26312d", fontFamily: "var(--font-num)", letterSpacing: "-0.03em" }}>
+            <text x="50" y="40" textAnchor="middle" style={{ fontSize: 17, fontWeight: 300, fill: "var(--color-ink)", fontFamily: "var(--font-num)", letterSpacing: "-0.03em" }}>
               100
             </text>
-            <text x="50" y="50" textAnchor="middle" style={{ fontSize: 5.4, fontWeight: 600, fill: "#899995", letterSpacing: "0.2em", fontFamily: "var(--font-num)" }}>
+            <text x="50" y="50" textAnchor="middle" style={{ fontSize: 5.4, fontWeight: 600, fill: "var(--color-accent-silver)", letterSpacing: "0.2em", fontFamily: "var(--font-num)" }}>
               9 FACTORS
             </text>
           </svg>

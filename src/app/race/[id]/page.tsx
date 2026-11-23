@@ -5,12 +5,17 @@ import { getRaceDetailPublic, getRaces } from "@/lib/data";
 import { formatDateShort, parseDate } from "@/lib/format";
 import type { RaceSummary } from "@/lib/types";
 import { SectionHeading } from "@/components/ui";
-import { TrackOval } from "@/components/brand/TrackOval";
+
 import { RaceHeader } from "@/components/race/RaceHeader";
 import { HorseRanking } from "@/components/race/HorseRanking";
 import { FreeWideCard } from "@/components/race/FreeWideCard";
 import { AdSlot } from "@/components/race/parts";
-import { ProIntroCard } from "@/components/pro/ProIntroCard";
+import { getNow, getViewer } from "@/lib/access/session";
+import { getRacePredictionView } from "@/lib/predictions/view";
+import { PreRaceTicketCard } from "@/components/predictions/PreRaceTicketCard";
+import { FinalTicketCard } from "@/components/predictions/FinalTicketCard";
+import { ProAnalysisSection } from "@/components/predictions/ProAnalysisSection";
+import { UnicornMark } from "@/components/brand/UnicornMark";
 
 type Props = { params: Promise<{ id: string }> };
 
@@ -32,13 +37,24 @@ export default async function RaceDetailPage({ params }: Props) {
 
   const { race, entries, index, indexMeta, freeWide, isDemo } = detail;
   const siblings = await getRaces(race.date, race.venue.code);
+  const viewer = await getViewer();
+  const view = await getRacePredictionView(race.id, viewer, getNow());
+  if (!view) notFound();
+
+  // 馬番 → 馬名 / 枠 (公開情報)
+  const names: Record<number, string> = {};
+  const frameOf: Record<number, number> = {};
+  for (const e of entries) {
+    names[e.horseNo] = e.name;
+    frameOf[e.horseNo] = e.frame;
+  }
 
   return (
     <div className="mx-auto max-w-6xl px-4 pt-3 pb-4 lg:px-6 lg:pt-5">
       <RaceHeader race={race} siblings={siblings} isDemo={isDemo} />
 
-      <div className="mt-6 grid gap-8 lg:mt-8 lg:grid-cols-[minmax(0,1fr)_340px] lg:gap-6 xl:grid-cols-[minmax(0,1fr)_360px]">
-        <div className="min-w-0">
+      <div className="mt-6 grid gap-8 lg:mt-8 lg:grid-cols-[minmax(0,1fr)_340px] lg:grid-rows-[auto_1fr] lg:items-start lg:gap-x-6 lg:gap-y-10 xl:grid-cols-[minmax(0,1fr)_360px]">
+        <div className="min-w-0 lg:col-start-1 lg:row-start-1">
           {race.status === "before_entry" ? (
             <BeforeEntry race={race} />
           ) : (
@@ -46,14 +62,23 @@ export default async function RaceDetailPage({ params }: Props) {
           )}
         </div>
 
-        <aside className="flex min-w-0 flex-col gap-6 lg:gap-7" aria-label="予想・PRO">
+        <aside className="flex min-w-0 flex-col gap-6 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:gap-7" aria-label="予想・買い目">
           <FreeWideCard pick={freeWide} entries={entries} status={race.status} />
-          <AdSlot />
-          {/* PC: ランキングをスクロールしている間も PRO カードを右レールに追従させる */}
-          <div className="lg:sticky lg:top-[84px]">
-            <ProIntroCard variant="race" index="03" raceId={race.id} available={race.pro === "on_sale"} status={race.pro} />
-          </div>
+          {view.showAds && <AdSlot />}
+          <section aria-labelledby="tickets-title">
+            <SectionHeading id="tickets-title" index="03" en="UNICO TICKETS" title="UNICO買い目" />
+            <div className="flex flex-col gap-4">
+              <PreRaceTicketCard raceId={race.id} pre={view.preRace} tier={view.tier} raceClosed={view.raceClosed} />
+              <FinalTicketCard fin={view.final} preHistory={view.preRace.history} tier={view.tier} names={names} frameOf={frameOf} />
+            </div>
+          </section>
         </aside>
+
+        {race.status !== "before_entry" && (
+          <div className="min-w-0 lg:col-start-1 lg:row-start-2">
+            <ProAnalysisSection analysis={view.proAnalysis} frameOf={frameOf} raceId={race.id} />
+          </div>
+        )}
       </div>
     </div>
   );
@@ -73,7 +98,7 @@ function BeforeEntry({ race }: { race: RaceSummary }) {
     <section aria-labelledby="ranking-title">
       <SectionHeading id="ranking-title" index="01" en="UNICO INDEX RANKING" title="UNICO指数ランキング" />
       <div className="edge-silver brushed relative overflow-hidden rounded-[var(--radius-card)] border border-line px-5 py-8 text-center shadow-[var(--shadow-card)] sm:py-10">
-        <TrackOval variant="decor" width={680} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-45" />
+        <UnicornMark size={306} tone="silver" className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.14]" />
         <div className="relative">
           <span className="silver-plate mx-auto flex h-12 w-12 items-center justify-center rounded-[12px] text-accent-silver">
             <CalendarClock size={21} strokeWidth={1.6} aria-hidden />

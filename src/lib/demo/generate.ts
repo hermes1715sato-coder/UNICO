@@ -79,7 +79,10 @@ export function parseRaceId(id: string) {
 }
 
 /** 基準日 (DEMO の「現在」)。実運用では JST 現在日時。 */
-export const DEMO_NOW = "2026-11-23";
+export const DEMO_NOW = "2026-11-28";
+/** DEMO の現在時刻 (JST)。レース当日の昼。予想の公開状態はこの時刻で判定する。 */
+export const DEMO_NOW_ISO = "2026-11-28T12:30:00+09:00";
+const DEMO_NOW_HHMM = "12:30";
 
 function statusFor(date: string, raceNo: number, r: () => number): RaceStatus {
   if (date < DEMO_NOW) return "finished";
@@ -96,9 +99,17 @@ export function buildRace(date: string, venue: Venue, raceNo: number, venueIndex
   const surface: Surface = isMain ? "turf" : r() < 0.5 ? "turf" : "dirt";
   const distances = surface === "turf" ? [1200, 1400, 1600, 1800, 2000, 2200, 2400] : [1200, 1400, 1600, 1700, 1800, 1900, 2100];
   const distance = isMain ? pick(r, [1600, 1800, 2000, 2400]) : pick(r, distances);
-  const status = statusFor(date, raceNo, r);
-  const conds: TrackCondition[] = ["良", "良", "良", "稍重", "重"];
-  const trackCondition = status === "finished" ? pick(r, conds) : date <= addDays(DEMO_NOW, 6) ? pick(r, conds) : undefined;
+  // 開催場ごとに発走時刻を少しずらす
+  const [hh, mm] = POST_TIMES[raceNo - 1].split(":").map(Number);
+  const t = hh * 60 + mm + venueIndex * 10;
+  const postTime = `${String(Math.floor(t / 60)).padStart(2, "0")}:${String(t % 60).padStart(2, "0")}`;
+  // 当日で発走時刻を過ぎたレースは終了扱い
+  const status: RaceStatus = date === DEMO_NOW && postTime <= DEMO_NOW_HHMM ? "finished" : statusFor(date, raceNo, r);
+  // 馬場状態は開催日・場ごとの共通ベースから決める (PRO のリアルタイム馬場と一致させる)
+  const base = demoTrackBase(date, venue.code);
+  const hasCondition = status === "finished" || date <= addDays(DEMO_NOW, 6);
+  if (hasCondition) r(); // 乱数列を従来どおり1つ消費 (以降の生成値=既存データを変えないため)
+  const trackCondition = hasCondition ? (surface === "turf" ? base.turfCondition : base.dirtCondition) : undefined;
   const fieldSize = isMain ? int(r, 14, 18) : int(r, 9, 16);
 
   let name: string;
@@ -117,11 +128,6 @@ export function buildRace(date: string, venue: Venue, raceNo: number, venueIndex
     name = className;
   }
 
-  // 開催場ごとに発走時刻を少しずらす
-  const [hh, mm] = POST_TIMES[raceNo - 1].split(":").map(Number);
-  const t = hh * 60 + mm + venueIndex * 10;
-  const postTime = `${String(Math.floor(t / 60)).padStart(2, "0")}:${String(t % 60).padStart(2, "0")}`;
-
   return {
     id: raceId(date, venue.code, raceNo),
     date,
@@ -138,7 +144,8 @@ export function buildRace(date: string, venue: Venue, raceNo: number, venueIndex
     fieldSize,
     status,
     freeWide: status === "analyzed" || status === "finished",
-    pro: status === "analyzed" ? (raceNo >= 9 || r() < 0.6 ? "on_sale" : "none") : status === "analyzing" ? "preparing" : "none",
+    // 予想対象レース (事前・最終買い目を作成)。終了レースも対象フラグを保持し、購入済みの閲覧に使う
+    pro: status === "analyzed" || status === "finished" ? (raceNo >= 9 || r() < 0.6 ? "on_sale" : "none") : status === "analyzing" ? "preparing" : "none",
     featured: isMain && venueIndex === 0,
   };
 }
@@ -215,6 +222,18 @@ export function buildEntries(race: RaceSummary): { entries: Entry[]; breakdowns:
   }
 
   return { entries, breakdowns };
+}
+
+/** 開催日・競馬場ごとの馬場の共通ベース (天候・含水率・馬場状態)。レース情報と PRO 馬場で共用 */
+export function demoTrackBase(date: string, venueCode: string) {
+  const r = rng(`track:${date}:${venueCode}`);
+  const weather = pick(r, ["晴", "晴", "曇", "曇", "小雨"] as const);
+  const wet = weather === "小雨" ? 4 : 0;
+  const round1 = (v: number) => Math.round(v * 10) / 10;
+  const turfMoist = round1(9 + r() * 6 + wet);
+  const dirtMoist = round1(4 + r() * 7 + wet);
+  const cond = (m: number, b: number): TrackCondition => (m < b ? "良" : m < b + 3 ? "稍重" : m < b + 6 ? "重" : "不良");
+  return { weather, turfMoist, dirtMoist, turfCondition: cond(turfMoist, 14), dirtCondition: cond(dirtMoist, 8), rng: r };
 }
 
 /** 頭数に応じた枠番割り当て (JRA方式) */

@@ -119,7 +119,7 @@ function BoxDiagram({ pick, frameOf }: { pick: FreeWidePick; frameOf: (no: numbe
                 y1={pts[a][1]}
                 x2={pts[b][0]}
                 y2={pts[b][1]}
-                stroke="#899995"
+                stroke="var(--color-accent-silver)"
                 strokeWidth="1"
                 vectorEffect="non-scaling-stroke"
               />
@@ -130,7 +130,7 @@ function BoxDiagram({ pick, frameOf }: { pick: FreeWidePick; frameOf: (no: numbe
                 cx={(pts[a][0] + pts[b][0]) / 2}
                 cy={(pts[a][1] + pts[b][1]) / 2}
                 r="1.2"
-                fill="#b5a078"
+                fill="var(--color-gold)"
               />
             ))}
           </svg>

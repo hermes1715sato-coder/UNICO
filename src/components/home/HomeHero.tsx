@@ -1,5 +1,5 @@
 import { HorseshoeGauge } from "@/components/brand/HorseshoeGauge";
-import { TrackOval } from "@/components/brand/TrackOval";
+import { UnicornMark } from "@/components/brand/UnicornMark";
 import { DemoBadge } from "@/components/ui";
 import { INDEX_VERSION } from "@/lib/scoring";
 
@@ -21,8 +21,9 @@ export function HomeHero() {
   return (
     <section className="brushed relative overflow-hidden rounded-[var(--radius-card-lg)] border border-line shadow-[var(--shadow-card)]">
       {/* 背景: 楕円トラックの細線 (右へ抜ける) */}
-      <TrackOval variant="decor" width={460} className="absolute -right-[170px] -top-[36px] opacity-55 lg:hidden" />
-      <TrackOval variant="decor" width={900} className="absolute -right-[470px] -top-[120px] hidden opacity-90 lg:block" />
+      {/* UNICO ユニコーンの透かし (マットシルバー) */}
+      <UnicornMark size={250} className="pointer-events-none absolute -right-[46px] -top-[18px] opacity-[0.22] lg:hidden" />
+      <UnicornMark size={560} className="pointer-events-none absolute -top-[70px] right-[250px] hidden opacity-[0.16] lg:inline-block xl:right-[290px]" />
 
       <div className="relative grid gap-3.5 px-5 pb-4 pt-5 lg:grid-cols-[minmax(0,1fr)_300px] lg:items-center lg:gap-12 lg:px-10 lg:py-9">
         <div className="min-w-0">

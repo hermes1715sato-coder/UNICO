@@ -7,6 +7,7 @@ import { ScrollToCurrent } from "./ScrollToCurrent";
 import { Readout } from "./parts";
 import { DataStatusBadge, DemoBadge, GradeBadge } from "@/components/ui";
 import { TrackOval } from "@/components/brand/TrackOval";
+import { UnicornMark } from "@/components/brand/UnicornMark";
 
 const WEEK_EN = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 
@@ -52,11 +53,7 @@ export function RaceHeader({
 
       <div className="edge-silver brushed relative overflow-hidden rounded-[var(--radius-card-lg)] border border-line shadow-[var(--shadow-card)]">
         {/* 背景: 極細のトラックライン */}
-        <TrackOval
-          variant="decor"
-          width={460}
-          className="absolute -top-10 -right-56 opacity-60 sm:-right-28 lg:-top-14 lg:-right-10 lg:opacity-55"
-        />
+        <UnicornMark size={276} tone="silver" className="pointer-events-none absolute -top-10 -right-56 sm:-right-28 lg:-top-14 lg:-right-10 opacity-[0.14]" />
 
         <div className="relative flex gap-3.5 px-3.5 pt-4 pb-4 sm:gap-5 sm:px-5 sm:pt-5 sm:pb-5 lg:px-6 lg:pt-6">
           {/* レース番号: 刻印プレート */}

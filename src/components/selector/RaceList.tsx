@@ -92,7 +92,7 @@ export function RaceList({
                 <span className="num ml-0.5 font-semibold text-ink">{finishedCount === races.length ? finishedCount : analyzed}</span>
               </span>
               <span className="ml-2 hidden border-l border-line pl-2 sm:inline">
-                PRO<span className="num ml-0.5 font-semibold text-ink">{proOnSale}</span>
+                買い目対象<span className="num ml-0.5 font-semibold text-ink">{proOnSale}</span>
               </span>
             </p>
           </div>

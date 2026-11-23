@@ -32,13 +32,13 @@ export function TrackOval({
             height={92 - d * 2}
             rx={(92 - d * 2) / 2}
             fill="none"
-            stroke="#c3cbca"
+            stroke="var(--color-silver)"
             strokeWidth={i === 0 ? 0.6 : 0.4}
             opacity={1 - i * 0.15}
           />
         ))}
         {/* ゴール板 */}
-        <line x1="132" y1="88" x2="132" y2="100" stroke="#b5a078" strokeWidth="0.8" />
+        <line x1="132" y1="88" x2="132" y2="100" stroke="var(--color-gold)" strokeWidth="0.8" />
       </svg>
     );
   }
@@ -53,10 +53,10 @@ export function TrackOval({
       role="img"
       aria-label={direction === "left" ? "左回りコース" : direction === "right" ? "右回りコース" : "直線コース"}
     >
-      <rect x="6" y="6" width="188" height="88" rx="44" fill="#f0f2f1" stroke="#c3cbca" strokeWidth="1.2" />
-      <rect x="22" y="22" width="156" height="56" rx="28" fill="#ffffff" stroke="#e1e6e3" strokeWidth="1" />
+      <rect x="6" y="6" width="188" height="88" rx="44" fill="var(--color-surface-2)" stroke="var(--color-silver)" strokeWidth="1.2" />
+      <rect x="22" y="22" width="156" height="56" rx="28" fill="var(--color-surface)" stroke="var(--color-line)" strokeWidth="1" />
       {/* ホームストレッチ (下辺) の進行方向 */}
-      <g stroke="#26312d" strokeWidth="3" fill="none" strokeLinecap="round" strokeLinejoin="round">
+      <g stroke="var(--color-ink)" strokeWidth="3" fill="none" strokeLinecap="round" strokeLinejoin="round">
         {clockwise ? (
           <>
             <path d="M150 86 H64" />
@@ -71,11 +71,11 @@ export function TrackOval({
       </g>
       {/* ゴール板 */}
       <g>
-        <line x1={clockwise ? 56 : 144} y1="76" x2={clockwise ? 56 : 144} y2="97" stroke="#b5a078" strokeWidth="2.4" />
-        <circle cx={clockwise ? 56 : 144} cy="74" r="3" fill="#b5a078" />
+        <line x1={clockwise ? 56 : 144} y1="76" x2={clockwise ? 56 : 144} y2="97" stroke="var(--color-gold)" strokeWidth="2.4" />
+        <circle cx={clockwise ? 56 : 144} cy="74" r="3" fill="var(--color-gold)" />
       </g>
       {/* 小サイズでは読めないため文字を出さない (aria-label で補完) */}
-      {width >= 110 && <text x="100" y="56" textAnchor="middle" style={{ fontSize: 15, fontWeight: 700, fill: "#68756f", letterSpacing: "0.12em", fontFamily: "var(--font-num)" }}>
+      {width >= 110 && <text x="100" y="56" textAnchor="middle" style={{ fontSize: 15, fontWeight: 700, fill: "var(--color-ink-2)", letterSpacing: "0.12em", fontFamily: "var(--font-num)" }}>
         {direction === "left" ? "LEFT" : direction === "right" ? "RIGHT" : "STRAIGHT"}
       </text>}
     </svg>

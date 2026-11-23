@@ -39,7 +39,7 @@ export function RaceNoBlock({
         aria-hidden
         className={clsx(
           "max-w-full truncate px-1 text-[11px] font-semibold tracking-[0.12em]",
-          muted ? "text-accent-silver" : "text-[#6f7d79]",
+          muted ? "text-accent-silver" : "text-ink-2",
         )}
       >
         {label}

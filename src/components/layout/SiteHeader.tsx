@@ -6,6 +6,7 @@ import { UserRound } from "lucide-react";
 import clsx from "clsx";
 import { UnicoLogo } from "@/components/brand/UnicoLogo";
 import { NAV_ITEMS } from "./nav-items";
+import { UnicornMark } from "@/components/brand/UnicornMark";
 
 export function SiteHeader() {
   const pathname = usePathname();
@@ -33,7 +34,7 @@ export function SiteHeader() {
                 )}
               >
                 {item.label}
-                {item.label === "PRO" && <span className="ml-1 inline-block h-1.5 w-1.5 rounded-full bg-gold align-middle" />}
+                {item.label === "PRO" && <UnicornMark size={16} tone="gold" className="-mt-0.5 ml-1.5 align-middle" />}
               </Link>
             );
           })}

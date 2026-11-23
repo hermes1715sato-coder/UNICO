@@ -31,7 +31,7 @@ export function UnicoScore({
   const isTop = rank === 1;
 
   const gapLabel = isTop ? (
-    <span className="num text-[11px] font-semibold tracking-[0.14em] text-[#8a7650]">TOP</span>
+    <span className="num text-[11px] font-semibold tracking-[0.14em] text-gold-ink">TOP</span>
   ) : (
     <span className="num text-[11.5px] text-ink-2">−{gap.toFixed(1)}</span>
   );

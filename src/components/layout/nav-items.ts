@@ -10,6 +10,6 @@ export interface NavItem {
 export const NAV_ITEMS: NavItem[] = [
   { href: "/", label: "ホーム", icon: Home, match: (p) => p === "/" },
   { href: "/races", label: "レース", icon: Flag, match: (p) => p.startsWith("/races") || p.startsWith("/race/") },
-  { href: "/pro", label: "PRO", icon: Crown, match: (p) => p.startsWith("/pro") },
+  { href: "/pro", label: "PRO", icon: Crown, match: (p) => p === "/pro" || p.startsWith("/pro/") },
   { href: "/mypage", label: "マイページ", icon: UserRound, match: (p) => p.startsWith("/mypage") || p.startsWith("/login") },
 ];
