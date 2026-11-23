@@ -1,0 +1,144 @@
+@import "tailwindcss";
+
+/* =========================================================
+   UNICO Design Tokens — Premium White × Matte Silver
+   すべての色・角丸・影はここで一元管理する。
+   コンポーネントでは bg-surface / text-ink などのユーティリティで参照。
+   ========================================================= */
+/* static: 未使用ユーティリティの変数も必ず出力する (枠色を style から var() 参照するため) */
+@theme static {
+  /* Brand palette (正式配色) */
+  --color-bg: #f5f6f3;            /* Background */
+  --color-surface: #ffffff;       /* Primary Surface */
+  --color-surface-2: #f0f2f1;     /* Secondary Surface */
+  --color-silver-surface: #e9edef;/* Silver Surface */
+  --color-silver: #c3cbca;        /* Matte Silver */
+  --color-ink: #26312d;           /* Main Text */
+  --color-ink-2: #68756f;         /* Secondary Text */
+  --color-line: #e1e6e3;          /* Border */
+  --color-accent-silver: #899995; /* Accent Silver */
+  --color-gold: #b5a078;          /* Premium Gold (細線・アイコン限定) */
+  --color-forest: #102a23;        /* Logo Forest Green (ロゴ・限定アクセントのみ) */
+
+  /* Charcoal for primary buttons / selected state */
+  --color-charcoal: #2b3431;
+  --color-charcoal-hover: #3a4541;
+
+  /* Functional colors (ブランド色とは別、十分なコントラスト) */
+  --color-turf: #2f7d4f;        /* 芝 (text on white: 4.9:1) */
+  --color-turf-bg: #e8f3ec;
+  --color-dirt: #8a5a2b;        /* ダート (5.6:1) */
+  --color-dirt-bg: #f5ece2;
+  --color-info: #2d5f8a;
+  --color-info-bg: #e7eff6;
+  --color-warn: #8a6100;
+  --color-warn-bg: #fbf3dc;
+  --color-danger: #b03a2e;
+  --color-danger-bg: #f9e9e7;
+  --color-ok: #2f6f4f;
+  --color-ok-bg: #e6f1eb;
+
+  /* 枠色 (JRA慣習の枠番色。枠番表示専用) */
+  --color-waku-1: #ffffff;
+  --color-waku-2: #222222;
+  --color-waku-3: #d6332a;
+  --color-waku-4: #2563b8;
+  --color-waku-5: #e8c21a;
+  --color-waku-6: #2e8b4a;
+  --color-waku-7: #ef8a1f;
+  --color-waku-8: #e889b0;
+
+  /* Typography */
+  --font-sans: var(--font-inter), var(--font-noto), "Hiragino Sans", "Yu Gothic UI", system-ui, sans-serif;
+  --font-num: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  /* Radius */
+  --radius-card: 14px;
+  --radius-card-lg: 18px;
+
+  /* Shadow (極めて控えめ) */
+  --shadow-card: 0 1px 2px rgba(38, 49, 45, 0.04), 0 1px 1px rgba(38, 49, 45, 0.02);
+  --shadow-raised: 0 4px 16px -6px rgba(38, 49, 45, 0.10);
+}
+
+:root {
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --bottom-nav-h: 64px;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-feature-settings: "palt" 1;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 数値: 桁揃え */
+.num {
+  font-family: var(--font-num);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+  letter-spacing: -0.01em;
+}
+
+/* マットシルバーの細いグラデーション線 (装飾は控えめに) */
+.silver-rule {
+  background: linear-gradient(90deg, transparent, var(--color-silver) 20%, var(--color-silver) 80%, transparent);
+  height: 1px;
+}
+.gold-rule {
+  background: linear-gradient(90deg, var(--color-gold), rgba(181, 160, 120, 0.15));
+  height: 1px;
+}
+
+/* ---------- UNICO Signature surfaces ---------- */
+/* マットシルバーのプレート (削り出し金属風。光沢は抑える) */
+.silver-plate {
+  background:
+    linear-gradient(160deg, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0) 38%),
+    linear-gradient(135deg, #eef1f1 0%, #dde3e2 46%, #e8ecec 58%, #cfd7d6 100%);
+  border: 1px solid #c9d1d0;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.85), inset 0 -1px 0 rgba(137,153,149,0.18);
+}
+/* ヘアライン (極細の横筋。ブラッシュ仕上げ) */
+.brushed {
+  background-image:
+    repeating-linear-gradient(0deg, rgba(137,153,149,0.045) 0px, rgba(137,153,149,0.045) 1px, transparent 1px, transparent 3px),
+    linear-gradient(180deg, #ffffff 0%, #f3f5f4 100%);
+}
+/* カード上端のシルバーの細線 */
+.edge-silver { position: relative; }
+.edge-silver::before {
+  content: ""; position: absolute; inset: 0 0 auto 0; height: 2px;
+  background: linear-gradient(90deg, #c3cbca, #e9edef 50%, #c3cbca);
+  border-radius: inherit; border-bottom-left-radius: 0; border-bottom-right-radius: 0;
+}
+.edge-gold::before { background: linear-gradient(90deg, #b5a078, #e4d9c3 50%, #b5a078); }
+
+/* 横スクロールのチップ列でスクロールバーを隠す */
+.no-scrollbar { scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+/* フォーカスリング */
+:focus-visible {
+  outline: 2px solid var(--color-accent-silver);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* 下部ナビ分の余白 (スマホ) */
+.pb-bottom-nav {
+  padding-bottom: calc(var(--bottom-nav-h) + var(--safe-bottom) + 16px);
+}
+@media (min-width: 1024px) {
+  .pb-bottom-nav { padding-bottom: 48px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
